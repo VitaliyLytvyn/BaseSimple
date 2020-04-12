@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/home_dest">
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.me.basesimple.presentation.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@+id/flow_step_one_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/flow_step_one_dest"
+        android:name="com.me.basesimple.presentation.FlowStepFragment"
+        tools:layout="@layout/flow_step_one_fragment">
+        <argument
+            android:name="flowStepNumber"
+            android:defaultValue="1"
+            app:argType="integer" />
+
+    </fragment>
+
+</navigation>
