@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/authFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.us.telemedicine.presentation.onboard.SignInFragment"
+        android:label="@string/sign_in_to_your_account"
+        tools:layout="@layout/sign_in_fragment_layout">
+
+        <argument
+            android:name="messageNotify"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_authFragment_pop"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/go_forgot_password_action"
+            app:destination="@+id/forgotPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/go_signUpFragment_action"
+            app:destination="@+id/signUpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.us.telemedicine.presentation.onboard.ForgotPasswordFragment"
+        android:label="@string/password_recovery"
+        tools:layout="@layout/fragment_forgot_password">
+
+        <action
+            android:id="@+id/action_passwordFragment_pop"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/authFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.us.telemedicine.presentation.onboard.SignUpFragment"
+        android:label="@string/create_new_account"
+        tools:layout="@layout/fragment_sign_up">
+
+        <action
+            android:id="@+id/sign_in_after_create_user"
+            app:destination="@id/authFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/authFragment" />
+
+
+        <!--        <action-->
+        <!--            android:id="@+id/action_signUpFragment_pop"-->
+        <!--            app:launchSingleTop="true"-->
+        <!--            app:popUpTo="@id/authFragment" />-->
+    </fragment>
+
+
+</navigation>

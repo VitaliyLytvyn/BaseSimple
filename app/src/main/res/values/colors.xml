@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorProgressBackTransparent">#645b5757</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorTransparent">@android:color/transparent</color>
+
+    <!-- colors on auth forms-->
+    <color name="colorSignInButton">#007bff</color>
+    <color name="colorSignInButtonDisabled">#645b5757</color>
+    <color name="colorLinkBlue">#0056b3</color>
+    <color name="colorSignUpGray">#494f54</color>
+    <color name="colorBackground">#FAFCFF</color>
+    <color name="plusBackground">#e9ecef</color>
+</resources>

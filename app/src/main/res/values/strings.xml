@@ -1,0 +1,62 @@
+<resources>
+
+    <string name="app_name" translatable="false">Telemedicine</string>
+
+    <!--Drawer menu item names-->
+    <string name="home">Home</string>
+    <string name="fragment2">fragment2</string>
+    <string name="menu_exit">Sign out</string>
+
+
+    <!--SignIn fragment-->
+    <string name="login">Login</string>
+    <string name="sign_in_to_your_account">Sign in to your account</string>
+    <string name="logged_in">Successfully logged in</string>
+    <string name="prompt_email_or_phone">Email address or phone number</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="invalid_email_or_phone">Not a valid email or phone</string>
+    <string name="invalid_password">Password should be minimum 6 characters long.</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+
+    <!--Forgot password fragment-->
+    <string name="password_recovery">Password recovery</string>
+    <string name="enter_email_label">Please enter your email address to request a password reset</string>
+    <string name="prompt_enter_email">Enter email</string>
+    <string name="action_reset">Reset password</string>
+    <string name="remember_password">Remember password?</string>
+    <string name="password_was_changed">Password was changed</string>
+    <string name="invalid_email">Not a valid email</string>
+
+    <!--SignUp fragment-->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_first_name">First name</string>
+    <string name="prompt_last_name">Last name</string>
+    <string name="prompt_confirm_password">Confirm password</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="invalid_phone">Not a valid phone number</string>
+    <string name="invalid_first_name">Please, enter first name</string>
+    <string name="invalid_last_name">Please, enter last name</string>
+    <string name="password_not_match">Confirmation password should match</string>
+    <string name="email_or_phone_needed">You should specify your email or phone number</string>
+    <string name="user_created_check_email">User created, please check yor email</string>
+
+    <!--Errors-->
+    <string name="failure_network_connection">failure_network_connection</string>
+    <string name="failure_server_error">server error</string>
+    <string name="failure_unknown_error">unknown error</string>
+
+    <!--Spinner user roles-->
+
+    <string-array name="user_roles">
+        <item>Patient</item>
+        <item>Doctor</item>
+    </string-array>
+
+
+</resources>
