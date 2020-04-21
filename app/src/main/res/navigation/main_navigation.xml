@@ -17,6 +17,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/choose_doctor_action"
+            app:destination="@+id/choose_doctor_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <deepLink
             android:id="@+id/deepLink"
             app:uri="www.skyver.com/token/{token}" />
@@ -26,6 +33,17 @@
             app:argType="string"
             app:nullable="true" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/choose_doctor_dest"
+        android:name="com.us.telemedicine.presentation.ChooseDoctorFragment"
+        android:label="@string/choose_doctor"
+        tools:layout="@layout/fragment_choose_doctor">
+        <action
+            android:id="@+id/action_choose_doctor_pop"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/home_dest" />
     </fragment>
 
     <fragment

@@ -21,6 +21,9 @@ fun View.setVisible() = apply { visibility = View.VISIBLE }
 fun View.setInvisible() = apply { visibility = View.INVISIBLE }
 fun View.setGone() = apply { visibility = View.GONE }
 
+fun View.setEnabled() = apply { this.isEnabled = true }
+fun View.setDisabled() = apply { this.isEnabled = false }
+
 //check it - alternative to setOnClickListener to disable clicks on presentation under progress bar
 fun View.setEnabledAll(enabled: Boolean) {
     this.isEnabled = enabled

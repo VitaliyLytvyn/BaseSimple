@@ -18,7 +18,6 @@ import com.us.telemedicine.global.BaseViewModel
 import com.us.telemedicine.global.extention.failure
 import com.us.telemedicine.global.extention.observe
 
-
 class ForgotPasswordFragment : BaseFragment(), Injectable {
 
     private lateinit var mViewModel: AuthViewModel
@@ -81,20 +80,24 @@ class ForgotPasswordFragment : BaseFragment(), Injectable {
         mBinding.email.addTextChangedListener(afterTextChangedListener)
         mBinding.email.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                mViewModel.recoverPassword(mBinding.email.text.toString())
+                startRecoverProcess()
             }
             false
         }
 
         mBinding.resetButton.setOnClickListener {
-            hideKeyboard()
-            showProgress()
-            mViewModel.recoverPassword(mBinding.email.text.toString())
+            startRecoverProcess()
         }
 
         mBinding.rememberPassword.setOnClickListener {
             mViewModel.navigate(ForgotPasswordFragmentDirections.actionPasswordFragmentPop())
         }
+    }
+
+    private fun startRecoverProcess(){
+        hideKeyboard()
+        showProgress()
+        mViewModel.recoverPassword(mBinding.email.text.toString())
     }
 
     private fun handleRecoverySuccess(result: Boolean?) {

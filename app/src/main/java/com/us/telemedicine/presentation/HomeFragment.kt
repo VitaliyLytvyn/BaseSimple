@@ -35,6 +35,8 @@ class HomeFragment : BaseFragment() {
         modelShare = sharedViewModel(viewModelFactory) {}
         mViewModel = viewModel(viewModelFactory) {}
 
+        navController = findNavController()
+
         // Check if arguments available(Deep link in this case)
         args.token?.let {}
     }
@@ -44,16 +46,17 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         //setHasOptionsMenu(true)
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
-
-        navController = findNavController()
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mBinding.navigateActionButton.setOnClickListener{
+            mViewModel.navigate(HomeFragmentDirections.chooseDoctorAction())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -46,10 +46,16 @@
     <string name="email_or_phone_needed">You should specify your email or phone number</string>
     <string name="user_created_check_email">User created, please check yor email</string>
 
+    <!--Choose doctor fragment-->
+    <string name="you_should_select_your_doctor">You should select your doctor</string>
+    <string name="choose_doctor">Choose a Doctor</string>
+    <string name="prompt_enter_doctor_name">Enter the doctor\'s name</string>
+
     <!--Errors-->
     <string name="failure_network_connection">failure_network_connection</string>
     <string name="failure_server_error">server error</string>
     <string name="failure_unknown_error">unknown error</string>
+    <string name="save">Save</string>
 
     <!--Spinner user roles-->
 
@@ -57,6 +63,9 @@
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

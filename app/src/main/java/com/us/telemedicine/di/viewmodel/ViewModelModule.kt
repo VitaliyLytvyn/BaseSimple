@@ -25,8 +25,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeVewModel::class)
-    abstract fun bindsHomeVewModel(homeVewModel: HomeVewModel): ViewModel
+    @ViewModelKey(ChooseDoctorVewModel::class)
+    abstract fun bindsChooseDoctorVewModel(chooseDoctorVewModel: ChooseDoctorVewModel): ViewModel
 
     @Binds
     @IntoMap
