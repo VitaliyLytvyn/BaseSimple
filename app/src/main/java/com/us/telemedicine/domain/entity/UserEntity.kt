@@ -2,8 +2,8 @@ package com.us.telemedicine.domain.entity
 
 
 data class UserEntity(
-    val firstName: String?,
-    val lastName: String?,
+    val firstName: String,
+    val lastName: String,
     val email: String?,
     val phone: String?,
     val password: String?,

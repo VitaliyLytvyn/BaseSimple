@@ -3,7 +3,10 @@ package com.us.telemedicine.data
 import androidx.lifecycle.LiveData
 import com.auth0.android.jwt.JWT
 import com.us.telemedicine.data.entity.BaseResponse
+import com.us.telemedicine.data.entity.request.RecoverPasswordRequest
+import com.us.telemedicine.data.entity.request.SignInRequest
 import com.us.telemedicine.data.mapper.SignInMapper
+import com.us.telemedicine.data.mapper.SignUpMapper
 import com.us.telemedicine.domain.Authenticator
 import com.us.telemedicine.global.Either
 import com.us.telemedicine.domain.entity.UserEntity
@@ -51,9 +54,10 @@ class AuthenticatorImpl
                 service.signOut()
                 preferenceHelper.accessToken = null
                 preferenceHelper.clearAll()
+                preferenceHelper.isLoggedIn
             },
             {
-                preferenceHelper.isLoggedIn
+                it
             },
             false
         )
@@ -75,8 +79,8 @@ class AuthenticatorImpl
             networkHandler,
             errorConverter,
             {
-                val valuesMapped = mapOf("username" to emailOrPhone, "password" to password)
-                val response = service.signInUser(valuesMapped)
+                val request = SignInRequest(username = emailOrPhone, password = password)
+                val response = service.signInUser(request)
                 val signInResult = SignInMapper.toUseFullMapper(response)
                 signInResult?.let {
                     preferenceHelper.currentProfile = it.user
@@ -98,10 +102,8 @@ class AuthenticatorImpl
             networkHandler,
             errorConverter,
             {
-                val valuesMapped = mapOf("email" to email)
-                service.passwordRecovery(valuesMapped)
-                true
-
+                val recoverRequest = RecoverPasswordRequest(email = email)
+                service.passwordRecovery(recoverRequest)
             },
             {
                 true
@@ -110,27 +112,13 @@ class AuthenticatorImpl
         )
     }
 
-//    override suspend fun signOut(): Either<Failure, Boolean> {
-//        return request(
-//            networkHandler,
-//            errorConverter,
-//            {
-//                service.signOut()
-//                true
-//            },
-//            {
-//                true
-//            },
-//            false
-//        )
-//    }
-
     override suspend fun createUserEmailPassword(user: UserEntity): Either<Failure, Boolean> {
         return request(
             networkHandler,
             errorConverter,
             {
-                service.signUpUser(user)
+                val requestUser = SignUpMapper.toSignUpRequest(user)
+                service.signUpUser(requestUser)
             },
             {
                 true

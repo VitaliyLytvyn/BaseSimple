@@ -1,6 +1,7 @@
-package com.us.telemedicine.data.entity
+package com.us.telemedicine.data.entity.response
 
 import com.google.gson.annotations.SerializedName
+import com.us.telemedicine.data.entity.BaseResponse
 
 class SignInResponse(
     @SerializedName("data")

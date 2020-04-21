@@ -1,12 +1,18 @@
 package com.us.telemedicine.data
 
 import com.us.telemedicine.data.entity.BaseResponse
-import com.us.telemedicine.data.entity.SignInResponse
+import com.us.telemedicine.data.entity.request.ChangePasswordRequest
+import com.us.telemedicine.data.entity.request.RecoverPasswordRequest
+import com.us.telemedicine.data.entity.request.SignInRequest
+import com.us.telemedicine.data.entity.response.SignInResponse
+import com.us.telemedicine.data.entity.request.SignUpRequestEntity
+import com.us.telemedicine.data.entity.response.DoctorsResponse
+import com.us.telemedicine.data.entity.response.PendingCallsResponse
+import com.us.telemedicine.data.entity.response.CallResponse
 import com.us.telemedicine.domain.GitApi
 import com.us.telemedicine.domain.platform.NetworkHandler
 import com.us.telemedicine.global.Either
 import com.us.telemedicine.global.extention.Failure
-import com.us.telemedicine.domain.entity.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
@@ -18,27 +24,52 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GitHubService
-@Inject constructor(retrofit: Retrofit) : GitApi {
+class GitHubService @Inject constructor(retrofit: Retrofit) : GitApi {
 
     private val gitApi by lazy { retrofit.create(GitApi::class.java) }
 
-    override suspend fun signInUser(fields: Map<String, String>): SignInResponse {
-        return gitApi.signInUser(fields)
+    override suspend fun signInUser(signInRequest: SignInRequest): SignInResponse {
+        return gitApi.signInUser(signInRequest)
     }
 
-    override suspend fun passwordRecovery(fields: Map<String, String>): BaseResponse {
-        return gitApi.passwordRecovery(fields)
+    override suspend fun passwordRecovery(recoverRequest: RecoverPasswordRequest): BaseResponse {
+        return gitApi.passwordRecovery(recoverRequest)
     }
 
-    override suspend fun repoes() = gitApi.repoes()
-
-    override suspend fun signUpUser(user: UserEntity): BaseResponse {
+    override suspend fun signUpUser(user: SignUpRequestEntity): BaseResponse {
         return gitApi.signUpUser(user)
     }
 
     override suspend fun signOut(): BaseResponse {
         return gitApi.signOut()
+    }
+
+    override suspend fun changePassword(changePassword: ChangePasswordRequest): BaseResponse {
+        return gitApi.changePassword(changePassword)
+    }
+
+    override suspend fun getDoctors(queryParamsMap: Map<String, String>): DoctorsResponse {
+        return gitApi.getDoctors(queryParamsMap)
+    }
+
+    override suspend fun getPendingCalls(): PendingCallsResponse {
+        return gitApi.getPendingCalls()
+    }
+
+    override suspend fun testCall(): CallResponse {
+        return gitApi.testCall()
+    }
+
+    override suspend fun createRegularCall(patientId: String): CallResponse {
+        return gitApi.createRegularCall(patientId)
+    }
+
+    override suspend fun joinCall(sessionId: String): CallResponse {
+        return gitApi.joinCall(sessionId)
+    }
+
+    override suspend fun leaveCall(sessionId: String): BaseResponse {
+        return gitApi.leaveCall(sessionId)
     }
 }
 
@@ -46,6 +77,7 @@ suspend fun <T, R> request(
     networkHandler: NetworkHandler,
     errorConverter: Converter<ResponseBody, BaseResponse>,
     call: suspend () -> T,
+    //transform: (T) -> R,
     transform: (T) -> R,
     default: T
 ): Either<Failure, R> {

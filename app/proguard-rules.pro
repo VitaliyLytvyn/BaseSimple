@@ -91,7 +91,7 @@
   @com.google.gson.annotations.SerializedName <fields>;
 }
 # Application classes that will be serialized/deserialized over Gson
--keep class com.me.basesimple.data.entity.** { *; }
+-keep class com.us.telemedicine.data.entity.** { *; }
 
 ##---------------End: proguard configuration for Gson  ----------
 

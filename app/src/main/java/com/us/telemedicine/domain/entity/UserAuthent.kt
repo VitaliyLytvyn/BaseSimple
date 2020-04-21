@@ -17,6 +17,4 @@ data class UserAuthent(
         password,
         Role.valueOf(role)
     )
-
-    //constructor(ent: UserEntity):this( ent.uid, ent.email, ent.name, ent.phoneNumber, ent.photoUrl)
 }

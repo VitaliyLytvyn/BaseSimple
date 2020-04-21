@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 class SignOutUserUC
 @Inject  constructor(private val authenticator: Authenticator) :
-    BaseUseCase<Boolean, Any>() {
+    BaseUseCase<Boolean, BaseUseCase.None>() {
 
-    override suspend fun run(params: Any) =
+    override suspend fun run(params: None) =
         authenticator.signOutUser()
 }

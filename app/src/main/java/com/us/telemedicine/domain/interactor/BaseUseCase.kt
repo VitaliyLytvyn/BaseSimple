@@ -14,7 +14,8 @@ import timber.log.Timber.e
  * By convention each [BaseUseCase] implementation will execute its job in a background thread
  * (kotlin coroutine) and will post the result in the UI thread.
  */
-abstract class BaseUseCase<out Type, in Params> where Type : Any {
+//abstract class BaseUseCase<out Type, in Params> where Type : Any {
+abstract class BaseUseCase<out Type, in Params> where Type : Any? {
 
     abstract suspend fun run(params: Params): Either<Failure, Type>
 

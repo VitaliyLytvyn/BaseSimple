@@ -1,7 +1,6 @@
 package com.us.telemedicine.data.mapper
 
-import com.us.telemedicine.data.entity.SignInResponse
-import com.us.telemedicine.domain.entity.UserAuthent
+import com.us.telemedicine.data.entity.response.SignInResponse
 
 
 class UserMapper {

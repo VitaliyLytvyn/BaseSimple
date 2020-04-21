@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.us.telemedicine.domain.Authenticator
+import com.us.telemedicine.domain.interactor.BaseUseCase
 import com.us.telemedicine.domain.interactor.SignOutUserUC
 import com.us.telemedicine.global.BaseViewModel
 import com.us.telemedicine.global.SingleLiveEvent
@@ -21,7 +22,7 @@ class MainViewModel
     fun isLoggedIn() = authenticator.isLoggedIn()
 
     fun signOut() {
-        signOutUserUC(viewModelScope, true) {
+        signOutUserUC(viewModelScope, BaseUseCase.None()) {
             it.fold(
                 ::handleFailure,
                 ::handleSignOutResult

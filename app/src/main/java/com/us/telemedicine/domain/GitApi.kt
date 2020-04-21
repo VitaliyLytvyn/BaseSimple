@@ -1,35 +1,56 @@
 package com.us.telemedicine.domain
 
 import com.us.telemedicine.data.entity.BaseResponse
-import com.us.telemedicine.data.entity.GitRepo
-import com.us.telemedicine.data.entity.SignInResponse
-import com.us.telemedicine.domain.entity.UserEntity
+import com.us.telemedicine.data.entity.request.ChangePasswordRequest
+import com.us.telemedicine.data.entity.request.RecoverPasswordRequest
+import com.us.telemedicine.data.entity.request.SignInRequest
+import com.us.telemedicine.data.entity.response.SignInResponse
+import com.us.telemedicine.data.entity.request.SignUpRequestEntity
+import com.us.telemedicine.data.entity.response.DoctorsResponse
+import com.us.telemedicine.data.entity.response.PendingCallsResponse
+import com.us.telemedicine.data.entity.response.CallResponse
 import retrofit2.http.*
 
 internal interface GitApi {
 
-    //@GET("user")
-    //suspend fun getUser(@Query("id") id: String = ""): SignInResponse
+    //   /identity
+    @POST("${URL_PREFIX}/identity/signin")
+    suspend fun signInUser(@Body signInRequest: SignInRequest): SignInResponse
 
-    @FormUrlEncoded
-    @POST("${URL_PREFIX}identity/signin")
-    suspend fun signInUser(@FieldMap fields: Map<String, String>): SignInResponse
+    @POST("${URL_PREFIX}/identity/password/recovery")
+    suspend fun passwordRecovery(@Body recoverRequest: RecoverPasswordRequest): BaseResponse
 
-    @FormUrlEncoded
-    @POST("${URL_PREFIX}identity/password/recovery")
-    suspend fun passwordRecovery(@FieldMap fields: Map<String, String>): BaseResponse
+    @POST("${URL_PREFIX}/identity/signup")
+    suspend fun signUpUser(@Body user: SignUpRequestEntity): BaseResponse
 
-    @GET("repos")
-    suspend fun repoes(): List<GitRepo>
+    @POST("${URL_PREFIX}/identity/signout")
+    suspend fun signOut(): BaseResponse
 
-    @POST("${URL_PREFIX}identity/signup")
-    suspend fun signUpUser(@Body user: UserEntity): BaseResponse
-
-    @POST("${URL_PREFIX}identity/signout")
-    suspend fun signOut (): BaseResponse
+    @PUT("${URL_PREFIX}/identity/password")
+    suspend fun changePassword(@Body changePassword: ChangePasswordRequest): BaseResponse
 
 
-    companion object{
-        const val URL_PREFIX = "api/v1/"
+    //   /doctors
+    @GET("${URL_PREFIX}/doctors")
+    suspend fun getDoctors(@QueryMap queryParamsMap: Map<String, String>): DoctorsResponse
+
+    //  /conversations
+    @GET("${URL_PREFIX}/conversations/pending")
+    suspend fun getPendingCalls(): PendingCallsResponse
+
+    @POST("${URL_PREFIX}/conversations/test")
+    suspend fun testCall(): CallResponse
+
+    @POST("${URL_PREFIX}/conversations/{patientId}")
+    suspend fun createRegularCall(@Path("patientId") patientId: String): CallResponse
+
+    @POST("${URL_PREFIX}/conversations/{sessionId}/join")
+    suspend fun joinCall(@Path("sessionId") sessionId: String): CallResponse
+
+    @POST("${URL_PREFIX}/conversations/{sessionId}/leave")
+    suspend fun leaveCall(@Path("sessionId") sessionId: String): BaseResponse
+
+    companion object {
+        const val URL_PREFIX = "api/v1"
     }
 }
