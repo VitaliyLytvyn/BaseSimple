@@ -6,7 +6,7 @@ import com.us.telemedicine.data.RepositoryImp
 import com.us.telemedicine.data.entity.BaseResponse
 import com.us.telemedicine.domain.Authenticator
 import com.us.telemedicine.domain.Repository
-import com.us.telemedicine.domain.platform.PreferenceHelper
+import com.us.telemedicine.data.PreferenceHelper
 
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package com.us.telemedicine.domain.platform
+package com.us.telemedicine.data
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 import com.us.telemedicine.BuildConfig
-import com.us.telemedicine.domain.entity.UserAuthent
 import com.us.telemedicine.domain.entity.UserEntity
 import timber.log.Timber.d
 import javax.inject.Inject
@@ -22,7 +21,8 @@ class PreferenceHelper @Inject constructor(context: Application) {
         context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
 
     val profileAsLiveData =
-        object : SharedPreferenceLiveData<UserEntity?>(prefs, PREFS_STATUS_PROFILE, null) {
+        object : SharedPreferenceLiveData<UserEntity?>(prefs,
+            PREFS_STATUS_PROFILE, null) {
             override fun getValueFromPreferences(
                 key: String,
                 defValue: UserEntity?
@@ -32,7 +32,8 @@ class PreferenceHelper @Inject constructor(context: Application) {
         }
 
     val loginStatusAsLiveData =
-        object : SharedPreferenceLiveData<Boolean?>(prefs, PREFS_LOGGED_IN, false) {
+        object : SharedPreferenceLiveData<Boolean?>(prefs,
+            PREFS_LOGGED_IN, false) {
             override fun getValueFromPreferences(
                 key: String,
                 defValue: Boolean?

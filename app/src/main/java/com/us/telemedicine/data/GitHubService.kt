@@ -10,7 +10,6 @@ import com.us.telemedicine.data.entity.response.DoctorsResponse
 import com.us.telemedicine.data.entity.response.PendingCallsResponse
 import com.us.telemedicine.data.entity.response.CallResponse
 import com.us.telemedicine.domain.GitApi
-import com.us.telemedicine.domain.platform.NetworkHandler
 import com.us.telemedicine.global.Either
 import com.us.telemedicine.global.extention.Failure
 import kotlinx.coroutines.Dispatchers

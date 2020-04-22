@@ -10,7 +10,6 @@ import com.google.android.gms.security.ProviderInstaller
 import com.us.telemedicine.BuildConfig
 import com.us.telemedicine.di.AppInjector
 import dagger.android.HasAndroidInjector
-import com.us.telemedicine.domain.platform.CrashReportingTree
 import dagger.android.DispatchingAndroidInjector
 import timber.log.Timber
 import javax.inject.Inject

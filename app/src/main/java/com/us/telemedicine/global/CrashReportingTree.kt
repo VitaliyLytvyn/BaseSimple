@@ -1,4 +1,4 @@
-package com.us.telemedicine.domain.platform
+package com.us.telemedicine.global
 
 import android.util.Log
 import com.crashlytics.android.Crashlytics

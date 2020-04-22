@@ -1,4 +1,4 @@
-package com.us.telemedicine.domain.platform
+package com.us.telemedicine.data
 
 import android.app.Application
 import com.us.telemedicine.global.extention.isConnected

@@ -1,7 +1,6 @@
 package com.us.telemedicine.data
 
 import androidx.lifecycle.LiveData
-import com.auth0.android.jwt.JWT
 import com.us.telemedicine.data.entity.BaseResponse
 import com.us.telemedicine.data.entity.request.RecoverPasswordRequest
 import com.us.telemedicine.data.entity.request.SignInRequest
@@ -11,14 +10,9 @@ import com.us.telemedicine.domain.Authenticator
 import com.us.telemedicine.global.Either
 import com.us.telemedicine.domain.entity.UserEntity
 import com.us.telemedicine.global.extention.Failure
-import com.us.telemedicine.domain.platform.NetworkHandler
-import com.us.telemedicine.domain.platform.PreferenceHelper
 import com.us.telemedicine.global.extention.asDate
 import okhttp3.ResponseBody
 import retrofit2.Converter
-import timber.log.Timber
-import timber.log.Timber.d
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton

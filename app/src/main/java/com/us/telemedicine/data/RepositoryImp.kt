@@ -10,8 +10,6 @@ import com.us.telemedicine.domain.entity.PendingCallEntity
 import com.us.telemedicine.domain.entity.CallEntity
 import com.us.telemedicine.global.Either
 import com.us.telemedicine.global.extention.Failure
-import com.us.telemedicine.domain.platform.NetworkHandler
-import com.us.telemedicine.domain.platform.PreferenceHelper
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import javax.inject.Inject
