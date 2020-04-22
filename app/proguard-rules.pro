@@ -92,6 +92,9 @@
 }
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.us.telemedicine.data.entity.** { *; }
+-keep class com.us.telemedicine.domain.entity.** { *; }
+-keepclassmembers enum com.us.telemedicine.data.entity.** { *; }
+-keepclassmembers enum com.us.telemedicine.domain.entity.** { *; }
 
 ##---------------End: proguard configuration for Gson  ----------
 
