@@ -18,12 +18,9 @@ import com.us.telemedicine.databinding.FragmentSignUpBinding
 import com.us.telemedicine.di.Injectable
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.global.BaseViewModel
-import com.us.telemedicine.global.extention.failure
-import com.us.telemedicine.global.extention.observe
-import com.us.telemedicine.global.extention.stringFrom
 import com.us.telemedicine.domain.entity.Role
 import com.us.telemedicine.domain.entity.UserEntity
-import com.us.telemedicine.global.extention.nullIfBlank
+import com.us.telemedicine.global.extention.*
 import timber.log.Timber.d
 
 /**

@@ -13,7 +13,7 @@ import retrofit2.http.*
 
 internal interface GitApi {
 
-    //   /identity
+    //-----/identity
     @POST("${URL_PREFIX}/identity/signin")
     suspend fun signInUser(@Body signInRequest: SignInRequest): SignInResponse
 
@@ -30,11 +30,11 @@ internal interface GitApi {
     suspend fun changePassword(@Body changePassword: ChangePasswordRequest): BaseResponse
 
 
-    //   /doctors
+    //-----/doctors
     @GET("${URL_PREFIX}/doctors")
     suspend fun getDoctors(@QueryMap queryParamsMap: Map<String, String>): DoctorsResponse
 
-    //  /conversations
+    //-----/conversations
     @GET("${URL_PREFIX}/conversations/pending")
     suspend fun getPendingCalls(): PendingCallsResponse
 
@@ -49,6 +49,10 @@ internal interface GitApi {
 
     @POST("${URL_PREFIX}/conversations/{sessionId}/leave")
     suspend fun leaveCall(@Path("sessionId") sessionId: String): BaseResponse
+
+    //-----/patients
+    @GET("${URL_PREFIX}/patients/{patientId}/doctors")
+    suspend fun getPatientDoctors(@Path("patientId") patientId: String): DoctorsResponse
 
     companion object {
         const val URL_PREFIX = "api/v1"

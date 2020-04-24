@@ -21,6 +21,8 @@ class MainViewModel
 
     fun isLoggedIn() = authenticator.isLoggedIn()
 
+    fun getUserType() = authenticator.userType()
+
     fun signOut() {
         signOutUserUC(viewModelScope, BaseUseCase.None()) {
             it.fold(

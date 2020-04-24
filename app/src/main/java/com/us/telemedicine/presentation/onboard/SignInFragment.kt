@@ -16,6 +16,7 @@ import com.us.telemedicine.databinding.SignInFragmentLayoutBinding
 import com.us.telemedicine.global.extention.*
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.di.Injectable
+import com.us.telemedicine.domain.entity.UserEntity
 import com.us.telemedicine.global.BaseViewModel
 import com.us.telemedicine.presentation.startMainActivity
 import timber.log.Timber.d
@@ -120,12 +121,10 @@ class SignInFragment : BaseFragment(), Injectable {
         }
     }
 
-    private fun handleLoginSuccess(authResult: Boolean?) {
+    private fun handleLoginSuccess(user: UserEntity?) {
         hideProgress()
-        if (authResult == true) {
-            //notify(R.string.logged_in)
-            requireActivity().startMainActivity()
-            requireActivity().finish()
+        user?.let {
+            mViewModel.navigate(SignInFragmentDirections.navigateToMainActivity())
         }
     }
 

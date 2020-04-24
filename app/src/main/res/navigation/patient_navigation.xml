@@ -3,13 +3,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/patientGraph"
     app:startDestination="@+id/home_dest">
 
     <fragment
         android:id="@+id/home_dest"
-        android:name="com.us.telemedicine.presentation.HomeFragment"
+        android:name="com.us.telemedicine.presentation.HomePatientFragment"
         android:label="@string/home"
-        tools:layout="@layout/home_fragment">
+        tools:layout="@layout/home_patient_fragment">
         <action
             android:id="@+id/next_action"
             app:destination="@+id/flow_step_one_dest"
@@ -19,11 +20,10 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/choose_doctor_action"
-            app:destination="@+id/choose_doctor_dest"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/choose_doctor_dest"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/patientGraph"
+            app:popUpToInclusive="true" />
         <deepLink
             android:id="@+id/deepLink"
             app:uri="www.skyver.com/token/{token}" />
@@ -42,18 +42,32 @@
         tools:layout="@layout/fragment_choose_doctor">
         <action
             android:id="@+id/action_choose_doctor_pop"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/home_dest" />
+            app:destination="@id/home_dest"
+            app:popUpTo="@id/home_dest"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_sendMoneyGraph"
+            app:destination="@id/doctor_navigation" />
     </fragment>
 
+
+    <!--This one as example of access by deep link-->
     <fragment
         android:id="@+id/flow_step_one_dest"
         android:name="com.us.telemedicine.presentation.HelperFragment"
         tools:layout="@layout/helper_fragment">
         <argument
-            android:name="helperNumber"
-            android:defaultValue="1"
-            app:argType="integer" />
+            android:name="token444"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="www.skyver.com/token44/{token444}" />
     </fragment>
+
+
+    <!--    <include app:graph="@navigation/doctor_navigation" />-->
 
 </navigation>

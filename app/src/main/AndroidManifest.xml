@@ -29,7 +29,8 @@
         <activity
             android:name="com.us.telemedicine.presentation.MainActivity"
             android:theme="@style/AppTheme.Launcher">
-            <nav-graph android:value="@navigation/main_navigation" />
+            <nav-graph android:value="@navigation/patient_navigation"/>
+            <nav-graph android:value="@navigation/doctor_navigation" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.us.telemedicine.presentation.onboard.OnBoardActivity"/>
+        <activity
+            android:name="com.us.telemedicine.presentation.onboard.OnBoardActivity"
+            android:noHistory="true" />
     </application>
 
 </manifest>

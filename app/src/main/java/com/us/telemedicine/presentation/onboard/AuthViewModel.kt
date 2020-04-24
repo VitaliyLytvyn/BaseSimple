@@ -25,8 +25,8 @@ class AuthViewModel
 
 ) : BaseViewModel() {
 
-    private val _signInResult = SingleLiveEvent<Boolean>()
-    val signInResult: LiveData<Boolean> = _signInResult
+    private val _signInResult = SingleLiveEvent<UserEntity>()
+    val signInResult: LiveData<UserEntity> = _signInResult
 
     private val _recoveryResult = SingleLiveEvent<Boolean>()
     val recoveryResult: LiveData<Boolean> = _recoveryResult
@@ -82,8 +82,8 @@ class AuthViewModel
         _recoveryResult.value = result
     }
 
-    private fun handleSignInResult(result: Boolean) {
-        _signInResult.value = result
+    private fun handleSignInResult(user: UserEntity?) {
+        _signInResult.value = user
     }
 
     private fun handleSignUpResult(result: Boolean) {

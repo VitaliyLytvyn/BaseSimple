@@ -110,4 +110,19 @@ class RepositoryImp
             false
         )
     }
+
+    override suspend fun getPatientDoctors(patientId: String): Either<Failure, List<DoctorEntity>> {
+        return request(
+            networkHandler,
+            errorConverter,
+            {
+                val response = service.getPatientDoctors(patientId)
+                response.responseData
+            },
+            {
+                DoctorsMapper.toDoctorEntityList(it)
+            },
+            emptyList()
+        )
+    }
 }

@@ -1,16 +1,11 @@
 package com.us.telemedicine.global
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
-import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -22,10 +17,9 @@ import androidx.viewbinding.ViewBinding
 import com.us.telemedicine.R
 import com.us.telemedicine.di.Injectable
 import com.us.telemedicine.domain.platform.NavigationCommand
+import com.us.telemedicine.global.extention.*
+import com.us.telemedicine.global.extention.notify
 import com.us.telemedicine.presentation.MainActivity
-import com.us.telemedicine.global.extention.Failure
-import com.us.telemedicine.global.extention.colorFrom
-import com.us.telemedicine.global.extention.hasLocationPermissions
 import com.us.telemedicine.presentation.onboard.OnBoardActivity
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -62,7 +56,7 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks, I
     }
 
     // Potentially to be overwritten
-    protected fun handleFailure(failure: Failure?) {
+    protected open fun handleFailure(failure: Failure?) {
         hideProgress()
         when (failure) {
             is Failure.NetworkConnection -> notify(getString(R.string.failure_network_connection))
@@ -75,10 +69,8 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks, I
         }
     }
 
-
     // [FragmentNavigatorExtras] mainly used to enable Shared Element transition
     open fun getExtras(): FragmentNavigator.Extras = FragmentNavigatorExtras()
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -128,56 +120,6 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks, I
                 progressBarContainer.setOnClickListener {}//disable clicks on presentation under progress bar
             } else
                 progressBarContainer.setOnClickListener(null)//enable clicks on presentation under progress bar
-        }
-    }
-
-    fun hideKeyboard() {
-        val imm =
-            requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(requireView().windowToken, 0)
-    }
-
-    //check it - alternative to setOnClickListener to disable clicks on presentation under progress bar
-    private fun setEnabledAll(v: View, enabled: Boolean) {
-        v.isEnabled = enabled
-        v.isFocusable = enabled
-        if (v is ViewGroup) {
-            for (i in 0 until v.childCount)
-                setEnabledAll(v.getChildAt(i), enabled)
-        }
-    }
-
-    internal fun notify(@StringRes message: Int) = notify(getString(message))
-
-    internal fun notify(message: String) {
-        view?.let {
-            Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-    internal fun notifyLong(@StringRes message: Int) = notifyLong(getString(message))
-
-    internal fun notifyLong(message: String) {
-        view?.let {
-            Snackbar.make(it, message, Snackbar.LENGTH_LONG).show()
-        }
-    }
-
-    internal fun notifyWithAction(
-        @StringRes message: Int,
-        @StringRes actionText: Int,
-        action: () -> Any
-    ) {
-        val s = activity?.getString(message) ?: return
-        notifyWithAction(s, actionText, action)
-    }
-
-    internal fun notifyWithAction(message: String, @StringRes actionText: Int, action: () -> Any) {
-        my_nav_host_fragment?.view?.let {
-            val snackBar = Snackbar.make(it, message, Snackbar.LENGTH_INDEFINITE)
-            snackBar.setAction(actionText) { _ -> action.invoke() }
-            snackBar.setActionTextColor(colorFrom(R.color.colorTextPrimary))
-            snackBar.show()
         }
     }
 

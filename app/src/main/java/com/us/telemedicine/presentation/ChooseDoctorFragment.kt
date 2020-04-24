@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -54,6 +53,13 @@ class ChooseDoctorFragment : BaseFragment(), Injectable {
         }
     }
 
+     override fun handleFailure(failure: Failure?) {
+         mBinding.pbEdit.setInvisible()
+         mBinding.doctorsName.setEnabled()
+
+         super.handleFailure(failure)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
@@ -91,7 +97,6 @@ class ChooseDoctorFragment : BaseFragment(), Injectable {
         } else {
             mBinding.pbEdit.setInvisible()
             mBinding.doctorsName.setEnabled()
-            //mBinding.doctorsName.requestFocus()
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
             imm?.showSoftInput(mBinding.doctorsName, InputMethodManager.SHOW_IMPLICIT)

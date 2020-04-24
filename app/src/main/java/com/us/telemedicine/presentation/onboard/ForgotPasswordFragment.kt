@@ -16,6 +16,8 @@ import com.us.telemedicine.di.Injectable
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.global.BaseViewModel
 import com.us.telemedicine.global.extention.failure
+import com.us.telemedicine.global.extention.hideKeyboard
+import com.us.telemedicine.global.extention.notify
 import com.us.telemedicine.global.extention.observe
 
 class ForgotPasswordFragment : BaseFragment(), Injectable {

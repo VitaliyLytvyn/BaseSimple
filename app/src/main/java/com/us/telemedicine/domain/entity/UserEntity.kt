@@ -13,5 +13,11 @@ data class UserEntity(
 enum class Role(val role: String){
     Patient("Patient"),
     Doctor("Doctor"),
-    Unknown("Unknown")
+    UltrasoundUser("UltrasoundUser"),
+    Unknown("Unknown");
+    companion object{
+         fun valueOrNullFrom(constant: String?): Role? {
+            return values().firstOrNull { e -> e.role == constant }
+        }
+    }
 }

@@ -3,46 +3,30 @@ package com.us.telemedicine.presentation
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navArgs
 import androidx.navigation.ui.*
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.navigation.NavigationView
 import com.us.telemedicine.R
 import com.us.telemedicine.databinding.ActivityMainBinding
-import com.us.telemedicine.domain.Authenticator
+import com.us.telemedicine.domain.entity.Role
+import com.us.telemedicine.global.BaseActivity
 import com.us.telemedicine.global.extention.*
 import com.us.telemedicine.presentation.onboard.startOnBoardActivity
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import timber.log.Timber.d
-import timber.log.Timber.e
-import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), HasAndroidInjector,
+
+class MainActivity : BaseActivity(),
     NavigationView.OnNavigationItemSelectedListener {
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return dispatchingAndroidInjector
-    }
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mViewModel: MainViewModel
-    private lateinit var navController: NavController
+    //private val args by navArgs<MainActivityArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Make sure this is before calling super.onCreate
@@ -50,48 +34,30 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
 
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-        val view = mBinding.root
-        setContentView(view)
-
-        //mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(mBinding.root)
 
         obtainViewModel()
-
-        // Check if token is not expired
-        if (mViewModel.isSignInRequired()) {
-            goToLoginActivity()
-            return
-        }
 
         manageActionBar()
         setObservers()
 
-        //check if Google Play Services available
-        if (checkPlayServices()) {
-            // Start application
-            setComponents()
-        } else {
-            e("GoogleApiAvailability = NOT AVAILABLE")
-        }
+        setComponents()
     }
+
+    // Need to enable show/hide Progress from base activity
+    override fun getProgressBarLayout() = mBinding.progressBarContainer
 
     private fun obtainViewModel() {
         mViewModel = viewModel(viewModelFactory) {}
     }
 
     private fun manageActionBar() {
-        // Set up Action Bar
         val toolbar = mBinding.toolbar
         setSupportActionBar(toolbar)
     }
 
     private fun setObservers() {
-
         mViewModel.run {
-
-            // Observe Auth state, when Sign out it will lead to state being UNAUTHENTICATED
-            observe(authenticationState, ::renderAuthState)
-
             observe(signOutResult, ::renderSignOutResult)
         }
     }
@@ -99,21 +65,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
     private fun renderSignOutResult(result: Boolean?) {
         if (result == true) {
             hideProgress()
-        }
-    }
-
-    private fun renderAuthState(authenticationState: Authenticator.AuthenticationState?) {
-        when (authenticationState) {
-            Authenticator.AuthenticationState.AUTHENTICATED -> d("Authenticated")
-            // If the user is not logged in, they should not be able to set any preferences,
-            // so navigate them to the login fragment
-            Authenticator.AuthenticationState.UNAUTHENTICATED -> {
-                d("UNAUTHENTICATED")
-                //navController.navigate(R.id.authFragment)
-                goToLoginActivity()
-
-            }
-            else -> e("New $authenticationState state that doesn't require any UI change")
+            goToLoginActivity()
         }
     }
 
@@ -123,25 +75,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
 
         navController = host.navController
 
-        setupActionBar(navController)
-
-        setupNavigationMenu(navController)
-
-        setupBottomNavMenu(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.authFragment) {
-            }
-
-            val dest: String = try {
-                resources.getResourceName(destination.id)
-            } catch (e: Resources.NotFoundException) {
-                destination.id.toString()
-            }
-
-            d("Navigated to $dest")
+        // Choose graph
+        val navGraph = when (mViewModel.getUserType()) {
+            Role.Doctor -> R.navigation.doctor_navigation
+            Role.Patient -> R.navigation.patient_navigation
+            else -> R.navigation.patient_navigation
         }
+        navController.setGraph(navGraph, intent.extras)
 
+        setupActionBar(navController)
+        setupNavigationMenu(navController)
+        setupBottomNavMenu(navController)
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
@@ -154,6 +98,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
         // In split screen mode, you can drag this presentation out from the left
         // This does NOT modify the actionbar
         //mBinding.navView.setupWithNavController(navController)
+        mBinding.navView.inflateMenu(R.menu.nav_drawer_menu)///todo check -> removed from main layout
         mBinding.navView.setNavigationItemSelectedListener(this)
     }
 
@@ -169,6 +114,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
         val id = item.itemId;
 
         if (id == R.id.sign_out) {
+            mBinding.drawerLayout.closeDrawers()
             showProgress()
             mViewModel.signOut()
             return true
@@ -178,10 +124,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
         mBinding.drawerLayout.closeDrawers()
         return false
     }
-
-    internal fun showProgress() = mBinding.progressBarContainer.setVisible()
-
-    internal fun hideProgress() = mBinding.progressBarContainer.setGone()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //return super.onOptionsItemSelected(item)
@@ -200,41 +142,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector,
         return findNavController(R.id.my_nav_host_fragment).navigateUp(mBinding.drawerLayout)
     }
 
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    private fun checkPlayServices(): Boolean {
-        val apiAvailability = GoogleApiAvailability.getInstance()
-        val resultCode = apiAvailability.isGooglePlayServicesAvailable(this)
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                val dialog = apiAvailability.getErrorDialog(
-                    this,
-                    resultCode,
-                    PLAY_SERVICES_RESOLUTION_REQUEST
-                )
-                dialog.setOnDismissListener { closeApp() }
-                dialog.show()
-            } else {
-                d("This device is not supported.")
-                closeApp()
-            }
-            return false
-        }
-        return true
-    }
-
-    private fun closeApp() = finish()
-
     private fun goToLoginActivity() {
         startOnBoardActivity()
-        closeApp()
-    }
-
-    companion object {
-        const val PLAY_SERVICES_RESOLUTION_REQUEST = 4794
+        finish()
     }
 }
 

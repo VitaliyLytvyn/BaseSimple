@@ -20,4 +20,6 @@ interface Repository {
 
     suspend fun leaveCall(sessionId: String): Either<Failure, Boolean>
 
+    suspend fun getPatientDoctors(patientId: String): Either<Failure, List<DoctorEntity>>
+
 }

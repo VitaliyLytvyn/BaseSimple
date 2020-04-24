@@ -21,8 +21,10 @@ class PreferenceHelper @Inject constructor(context: Application) {
         context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
 
     val profileAsLiveData =
-        object : SharedPreferenceLiveData<UserEntity?>(prefs,
-            PREFS_STATUS_PROFILE, null) {
+        object : SharedPreferenceLiveData<UserEntity?>(
+            prefs,
+            PREFS_STATUS_PROFILE, null
+        ) {
             override fun getValueFromPreferences(
                 key: String,
                 defValue: UserEntity?
@@ -32,14 +34,22 @@ class PreferenceHelper @Inject constructor(context: Application) {
         }
 
     val loginStatusAsLiveData =
-        object : SharedPreferenceLiveData<Boolean?>(prefs,
-            PREFS_LOGGED_IN, false) {
+        object : SharedPreferenceLiveData<Boolean?>(
+            prefs,
+            PREFS_LOGGED_IN, false
+        ) {
             override fun getValueFromPreferences(
                 key: String,
                 defValue: Boolean?
             ): Boolean {
                 return isLoggedIn
             }
+        }
+
+    var userRole: String?
+        get() = prefs.getString(PREFS_USER_ROLE, null)
+        set(value) {
+            prefs.edit().putString(PREFS_USER_ROLE, value).commit()
         }
 
     var isLoggedIn: Boolean
@@ -92,6 +102,7 @@ class PreferenceHelper @Inject constructor(context: Application) {
         const val PREFS_ACCESS_TOKEN = "$PREFS_FILENAME.accessToken"
         const val PREFS_REFRESH_TOKEN = "$PREFS_FILENAME.refreshToken"
         const val PREFS_ACCESS_TOKEN_EXPIRES_AT = "$PREFS_FILENAME.tokenExpiresAt"
+        const val PREFS_USER_ROLE = "$PREFS_FILENAME.userRole"
     }
 }
 

@@ -7,6 +7,7 @@ import com.us.telemedicine.data.entity.request.SignInRequest
 import com.us.telemedicine.data.mapper.SignInMapper
 import com.us.telemedicine.data.mapper.SignUpMapper
 import com.us.telemedicine.domain.Authenticator
+import com.us.telemedicine.domain.entity.Role
 import com.us.telemedicine.global.Either
 import com.us.telemedicine.domain.entity.UserEntity
 import com.us.telemedicine.global.extention.Failure
@@ -16,7 +17,6 @@ import retrofit2.Converter
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
-
 
 @Singleton
 class AuthenticatorImpl
@@ -40,6 +40,8 @@ class AuthenticatorImpl
         return tokenExpiresAt.asDate()?.before(Date()) ?: true
     }
 
+    override fun userType(): Role? = Role.valueOrNullFrom(preferenceHelper.userRole)
+
     override suspend fun signOutUser(): Either<Failure, Boolean> {
         return request(
             networkHandler,
@@ -48,7 +50,7 @@ class AuthenticatorImpl
                 service.signOut()
                 preferenceHelper.accessToken = null
                 preferenceHelper.clearAll()
-                preferenceHelper.isLoggedIn
+                !preferenceHelper.isLoggedIn
             },
             {
                 it
@@ -68,7 +70,7 @@ class AuthenticatorImpl
     override suspend fun signInEmailOrPhonePassword(
         emailOrPhone: String,
         password: String
-    ): Either<Failure, Boolean> {
+    ): Either<Failure, UserEntity?> {
         return request(
             networkHandler,
             errorConverter,
@@ -79,15 +81,17 @@ class AuthenticatorImpl
                 signInResult?.let {
                     preferenceHelper.currentProfile = it.user
                     preferenceHelper.accessToken = it.accessToken
+                    preferenceHelper.userRole = it.user.role.role
                     preferenceHelper.refreshToken = it.refreshToken
                     preferenceHelper.tokenExpiresAt = it.accessTokenExpiresAt
                 }
                 preferenceHelper.isLoggedIn
+                signInResult?.user
             },
             {
                 it
             },
-            false
+            null
         )
     }
 

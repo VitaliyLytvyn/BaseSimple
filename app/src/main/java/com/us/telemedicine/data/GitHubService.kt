@@ -70,6 +70,10 @@ class GitHubService @Inject constructor(retrofit: Retrofit) : GitApi {
     override suspend fun leaveCall(sessionId: String): BaseResponse {
         return gitApi.leaveCall(sessionId)
     }
+
+    override suspend fun getPatientDoctors(patientId: String): DoctorsResponse {
+        return gitApi.getPatientDoctors(patientId)
+    }
 }
 
 suspend fun <T, R> request(
