@@ -150,7 +150,8 @@ class SignUpFragment : BaseFragment(), Injectable {
                 email = mBinding.email.text.toString().nullIfBlank(),
                 phone = mBinding.phone.text.toString().nullIfBlank(),
                 password = mBinding.password.text.toString(),
-                role = Role.valueOf(mRole!!)
+                role = Role.valueOf(mRole!!),
+                id = null
             )
         )
     }

@@ -23,6 +23,16 @@
         <!-- <item name="android:textSize">13sp</item>-->
     </style>
 
+    <style name="GreenButton" parent="BlueButton">
+        <item name="android:background">@drawable/btn_green_bg_normal</item>
+        <item name="android:elevation">@dimen/dp_2</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+<!--        <item name="android:padding">20dp</item>-->
+    </style>
+
     <!--<style name="BlueLink" parent="Base.Widget.AppCompat.TextView">-->
     <style name="BlueLink" parent="Base.Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorLinkBlue</item>

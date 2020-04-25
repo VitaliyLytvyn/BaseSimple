@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/home_dest"
         android:name="com.us.telemedicine.presentation.HomePatientFragment"
-        android:label="@string/home"
+        android:label="@string/assigned_doctors"
         tools:layout="@layout/home_patient_fragment">
         <action
             android:id="@+id/next_action"
@@ -21,8 +21,13 @@
         <action
             android:id="@+id/choose_doctor_action"
             app:destination="@id/choose_doctor_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
-            app:popUpTo="@id/patientGraph"
+            app:popEnterAnim="@anim/slide_in_left"
+
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/home_dest"
             app:popUpToInclusive="true" />
         <deepLink
             android:id="@+id/deepLink"
@@ -43,12 +48,9 @@
         <action
             android:id="@+id/action_choose_doctor_pop"
             app:destination="@id/home_dest"
-            app:popUpTo="@id/home_dest"
-            app:popUpToInclusive="true" />
 
-        <action
-            android:id="@+id/action_mainFragment_to_sendMoneyGraph"
-            app:destination="@id/doctor_navigation" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -66,6 +68,10 @@
             android:id="@+id/deepLink2"
             app:uri="www.skyver.com/token44/{token444}" />
     </fragment>
+
+    <!--    <action-->
+    <!--        android:id="@+id/action_global_choose_doctor_dest"-->
+    <!--        app:destination="@id/choose_doctor_dest" />-->
 
 
     <!--    <include app:graph="@navigation/doctor_navigation" />-->

@@ -1,136 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorBackground"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/email"
+            style="@style/EditTextCommon"
+            android:layout_marginTop="32dp"
+            android:hint="@string/prompt_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+        <EditText
+            android:id="@+id/phone"
+            style="@style/EditTextRightRounded"
+            android:layout_marginStart="@dimen/dp_0"
+            android:hint="@string/prompt_phone"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/email" />
+
+        <EditText
+            android:id="@+id/firstName"
+            style="@style/EditTextCommon"
+            android:hint="@string/prompt_first_name"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+        <EditText
+            android:id="@+id/lastName"
+            style="@style/EditTextCommon"
+            android:hint="@string/prompt_last_name"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/EditTextCommon"
+            android:hint="@string/prompt_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastName" />
+
+        <EditText
+            android:id="@+id/confirmPassword"
+            style="@style/EditTextCommon"
+            android:hint="@string/prompt_confirm_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sign_up_button"
+            style="@style/BlueButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            >
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:enabled="false"
+            android:text="@string/action_sign_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerRoles" />
 
+        <!--<androidx.appcompat.widget.AppCompatTextView-->
 
-            <EditText
-                android:id="@+id/email"
-                style="@style/EditTextCommon"
-                android:layout_marginTop="32dp"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionNext"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextFields" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/haveAccount"
+            style="@style/GrayLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/already_have_account"
+            app:layout_constraintEnd_toEndOf="@+id/confirmPassword"
+            app:layout_constraintStart_toStartOf="@+id/sign_up_button"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_button" />
 
-            <EditText
-                android:id="@+id/phone"
-                style="@style/EditTextRightRounded"
-                android:layout_marginStart="@dimen/dp_0"
-                android:hint="@string/prompt_phone"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/email" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/layout_margin"
+            android:background="@drawable/left_round_textview"
+            android:elevation="@dimen/dp_2"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:text="@string/plus"
+            app:layout_constraintBottom_toBottomOf="@+id/phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phone" />
 
-            <EditText
-                android:id="@+id/firstName"
-                style="@style/EditTextCommon"
-                android:hint="@string/prompt_first_name"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phone" />
-            <EditText
-                android:id="@+id/lastName"
-                style="@style/EditTextCommon"
-                android:hint="@string/prompt_last_name"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/firstName" />
-            <EditText
-                android:id="@+id/password"
-                style="@style/EditTextCommon"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lastName" />
+        <Spinner
+            android:id="@+id/spinnerRoles"
+            style="@style/Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
 
-            <EditText
-                android:id="@+id/confirmPassword"
-                style="@style/EditTextCommon"
-                android:hint="@string/prompt_confirm_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sign_up_button"
-                style="@style/BlueButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="@dimen/layout_margin"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="@dimen/layout_margin"
-                android:enabled="false"
-                android:text="@string/action_sign_in"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerRoles" />
-
-            <!--<androidx.appcompat.widget.AppCompatTextView-->
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/haveAccount"
-                style="@style/GrayLink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/already_have_account"
-                app:layout_constraintEnd_toEndOf="@+id/confirmPassword"
-                app:layout_constraintStart_toStartOf="@+id/sign_up_button"
-                app:layout_constraintTop_toBottomOf="@+id/sign_up_button" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/layout_margin"
-                android:background="@drawable/left_round_textview"
-                android:text="@string/plus"
-                android:gravity="center"
-                android:paddingStart="@dimen/dp_16"
-                android:paddingEnd="@dimen/dp_16"
-                android:elevation="@dimen/dp_2"
-                app:layout_constraintBottom_toBottomOf="@+id/phone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/phone" />
-
-            <Spinner
-                android:id="@+id/spinnerRoles"
-                style="@style/Spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+</ScrollView>

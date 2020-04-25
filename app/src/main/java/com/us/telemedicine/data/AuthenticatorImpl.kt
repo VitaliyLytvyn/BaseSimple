@@ -40,7 +40,10 @@ class AuthenticatorImpl
         return tokenExpiresAt.asDate()?.before(Date()) ?: true
     }
 
-    override fun userType(): Role? = Role.valueOrNullFrom(preferenceHelper.userRole)
+    override fun getUserType(): Role? = Role.valueOrNullFrom(preferenceHelper.userRole)
+
+    override fun getUserId(): String? = preferenceHelper.currentProfile?.id
+
 
     override suspend fun signOutUser(): Either<Failure, Boolean> {
         return request(

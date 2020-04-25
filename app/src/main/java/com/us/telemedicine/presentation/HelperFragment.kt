@@ -7,19 +7,19 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.us.telemedicine.databinding.HelperFragmentBinding
+import com.us.telemedicine.domain.entity.DoctorEntity
 import com.us.telemedicine.presentation.entity.RepoView
 import com.us.telemedicine.global.extention.*
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.global.BaseViewModel
 import timber.log.Timber
-import timber.log.Timber.d
 import javax.inject.Inject
 
 
 class HelperFragment : BaseFragment() {
 
     @Inject
-    lateinit var repoesAdapter: RepoesAdapter
+    lateinit var doctorsAdapter: DoctorsAdapter
 
     private lateinit var mViewModel: MainViewModel
     override fun getViewModel(): BaseViewModel = mViewModel
@@ -60,12 +60,12 @@ class HelperFragment : BaseFragment() {
 
     private fun initializeView() {
         mBinding.repoList.layoutManager = LinearLayoutManager(activity)
-        mBinding.repoList.adapter = repoesAdapter
-        repoesAdapter.clickListener = { movie -> notify(movie.name) }
+        mBinding.repoList.adapter = doctorsAdapter
+        doctorsAdapter.clickListener = { doctor -> notify(doctor.fullName) }
     }
 
-    private fun renderReposList(movies: List<RepoView>?) {
-        repoesAdapter.collection = movies.orEmpty()
+    private fun renderReposList(doctors: List<DoctorEntity>?) {
+        doctorsAdapter.collection = doctors.orEmpty()
         hideProgress()
     }
 

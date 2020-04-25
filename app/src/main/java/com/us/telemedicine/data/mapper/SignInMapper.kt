@@ -15,6 +15,7 @@ class SignInMapper {
                     refreshToken = response.responseData.refreshToken?.token,
                     accessTokenExpiresAt = response.responseData.accessToken?.expiresAt,
                     user = UserEntity(
+                        id = response.responseData.userInfo?.id,
                         firstName = response.responseData.userInfo?.firstName ?: "",
                         lastName = response.responseData.userInfo?.lastName ?: "",
                         email = response.responseData.userInfo?.email,

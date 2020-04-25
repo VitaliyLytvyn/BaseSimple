@@ -233,13 +233,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="action_global_choose_doctor_dest">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                   <entry key="choose_doctor_dest">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="306" />
+                            <option name="y" value="-65" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -264,8 +269,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="234" />
+                            <option name="y" value="300" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -285,8 +290,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-98" />
+                            <option name="y" value="63" />
                           </Point>
                         </option>
                         <option name="myPositions">

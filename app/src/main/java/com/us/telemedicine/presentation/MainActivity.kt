@@ -3,8 +3,11 @@ package com.us.telemedicine.presentation
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
+import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -37,11 +40,29 @@ class MainActivity : BaseActivity(),
         setContentView(mBinding.root)
 
         obtainViewModel()
-
         manageActionBar()
         setObservers()
-
         setComponents()
+        setDestinationListener()
+    }
+
+    private fun setDestinationListener() {
+        // appBarConfiguration sets Top destination(removes arrow)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.choose_doctor_dest))
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            if (destination.id == R.id.choose_doctor_dest) {
+                // Disabling back arrow
+                Handler().post {
+                    setupActionBarWithNavController(navController, appBarConfiguration)
+                }
+            } else {
+                // Enabling back arrow
+                Handler().post {
+                    setupActionBarWithNavController(navController, mBinding.drawerLayout)
+                }
+            }
+        }
     }
 
     // Need to enable show/hide Progress from base activity

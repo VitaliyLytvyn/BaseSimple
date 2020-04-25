@@ -16,4 +16,5 @@
     <color name="colorSignUpGray">#494f54</color>
     <color name="colorBackground">#FAFCFF</color>
     <color name="plusBackground">#e9ecef</color>
+    <color name="colorGreenBackground">#28a745</color>
 </resources>

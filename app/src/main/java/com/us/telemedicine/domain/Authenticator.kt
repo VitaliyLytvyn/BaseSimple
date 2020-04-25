@@ -11,7 +11,8 @@ interface Authenticator {
     // Regular response
     fun isLoggedIn(): Boolean
     fun isSignInRequired(): Boolean
-    fun userType(): Role?
+    fun getUserType(): Role?
+    fun getUserId(): String?
 
     // LiveData response
     fun observeUser(): LiveData<UserEntity?>

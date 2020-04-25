@@ -10,6 +10,7 @@ data class UserAuthent(
 ) {
 
     fun toUserEntity() = UserEntity(
+        null,
         firstName,
         lastName,
         email,

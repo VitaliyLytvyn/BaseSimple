@@ -50,12 +50,16 @@
     <string name="you_should_select_your_doctor">You should select your doctor</string>
     <string name="choose_doctor">Choose a Doctor</string>
     <string name="prompt_enter_doctor_name">Enter the doctor\'s name</string>
+    <string name="save">Save</string>
+
+    <!--HomePatientFragment-->
+    <string name="assigned_doctors">Assigned doctors</string>
+    <string name="make_a_call">Make a call</string>
 
     <!--Errors-->
     <string name="failure_network_connection">failure_network_connection</string>
     <string name="failure_server_error">server error</string>
     <string name="failure_unknown_error">unknown error</string>
-    <string name="save">Save</string>
 
     <!--Spinner user roles-->
 

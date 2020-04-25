@@ -14,6 +14,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.us.telemedicine.databinding.FragmentChooseDoctorBinding
 import com.us.telemedicine.di.Injectable
 import com.us.telemedicine.global.BaseFragment
