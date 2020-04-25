@@ -23,8 +23,13 @@ inline fun <reified T : ViewModel> AppCompatActivity.viewModel(factory: ViewMode
     return vm
 }
 
-inline fun <reified T : ViewModel> Fragment.sharedViewModel(factory: ViewModelProvider.Factory, body: T.() -> Unit): T? {
-    activity ?: return null
+inline fun <reified T : ViewModel> Fragment.sharedViewModel(factory: ViewModelProvider.Factory, body: T.() -> Unit): T {
+    val vm = ViewModelProvider(this.requireActivity(), factory)[T::class.java]
+    vm.body()
+    return vm
+}
+
+inline fun <reified T : ViewModel> Fragment.viewModelOfActivity(factory: ViewModelProvider.Factory, body: T.() -> Unit): T {
     val vm = ViewModelProvider(this.requireActivity(), factory)[T::class.java]
     vm.body()
     return vm

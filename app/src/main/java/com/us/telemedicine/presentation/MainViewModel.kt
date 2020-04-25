@@ -1,6 +1,7 @@
 package com.us.telemedicine.presentation
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.us.telemedicine.domain.Authenticator
@@ -23,7 +24,7 @@ class MainViewModel
     private val _signOutResult = SingleLiveEvent<Boolean>()
     val signOutResult: LiveData<Boolean> = _signOutResult
 
-    private val _patientDoctorsResult = SingleLiveEvent<List<DoctorEntity>>()
+    private val _patientDoctorsResult = MutableLiveData<List<DoctorEntity>>()
     val patientDoctorsResult: LiveData<List<DoctorEntity>> = _patientDoctorsResult
 
     fun isLoggedIn() = authenticator.isLoggedIn()

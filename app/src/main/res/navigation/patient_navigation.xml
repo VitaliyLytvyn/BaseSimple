@@ -21,11 +21,8 @@
         <action
             android:id="@+id/choose_doctor_action"
             app:destination="@id/choose_doctor_dest"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_left"
-
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/home_dest"
             app:popUpToInclusive="true" />
@@ -48,9 +45,11 @@
         <action
             android:id="@+id/action_choose_doctor_pop"
             app:destination="@id/home_dest"
-
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right" />
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/patientGraph"
+            app:popUpToInclusive="true" />
     </fragment>
 
 

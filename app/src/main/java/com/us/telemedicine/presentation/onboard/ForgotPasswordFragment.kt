@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.us.telemedicine.R
@@ -15,10 +14,9 @@ import com.us.telemedicine.databinding.FragmentForgotPasswordBinding
 import com.us.telemedicine.di.Injectable
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.global.BaseViewModel
-import com.us.telemedicine.global.extention.failure
+import com.us.telemedicine.global.extention.*
 import com.us.telemedicine.global.extention.hideKeyboard
 import com.us.telemedicine.global.extention.notify
-import com.us.telemedicine.global.extention.observe
 
 class ForgotPasswordFragment : BaseFragment(), Injectable {
 
@@ -44,8 +42,7 @@ class ForgotPasswordFragment : BaseFragment(), Injectable {
     }
 
     private fun setUpVieModel() {
-        mViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(AuthViewModel::class.java)
+        mViewModel = viewModelOfActivity(viewModelFactory) {}
 
         mViewModel.run {
             observe(recoveryResult, ::handleRecoverySuccess)
@@ -96,7 +93,7 @@ class ForgotPasswordFragment : BaseFragment(), Injectable {
         }
     }
 
-    private fun startRecoverProcess(){
+    private fun startRecoverProcess() {
         hideKeyboard()
         showProgress()
         mViewModel.recoverPassword(mBinding.email.text.toString())

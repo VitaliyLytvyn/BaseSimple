@@ -9,12 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.us.telemedicine.R
 import com.us.telemedicine.databinding.HomePatientFragmentBinding
 import com.us.telemedicine.domain.entity.DoctorEntity
-import com.us.telemedicine.global.extention.viewModel
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.global.BaseViewModel
-import com.us.telemedicine.global.extention.failure
+import com.us.telemedicine.global.extention.*
 import com.us.telemedicine.global.extention.notify
-import com.us.telemedicine.global.extention.observe
 import com.us.telemedicine.presentation.onboard.startOnBoardActivity
 import timber.log.Timber.d
 import javax.inject.Inject
@@ -43,23 +41,12 @@ class HomePatientFragment : BaseFragment() {
 
         // Check if arguments available(Deep link in this case)
         args.token?.let { d("token: $it") }
+
+        mViewModel.getPatientDoctors()
     }
 
     private fun setViewModel() {
-        mViewModel = viewModel(viewModelFactory) {
-            observe(patientDoctorsResult, ::renderPatientDoctorsList)
-            failure(failure, ::handleFailure)
-        }
-    }
-
-    private fun renderPatientDoctorsList(movies: List<DoctorEntity>?) {
-        doctorsAdapter.collection = movies.orEmpty()
-        hideProgress()
-    }
-
-    private fun goToLoginActivity() {
-        activity?.startOnBoardActivity()
-        activity?.finish()
+        mViewModel = viewModelOfActivity(viewModelFactory) {}
     }
 
     override fun onCreateView(
@@ -84,18 +71,35 @@ class HomePatientFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeView()
-//        mBinding.navigateActionButton.setOnClickListener{
-//            mViewModel.navigate(HomePatientFragmentDirections.chooseDoctorAction())
-//        }
     }
 
     private fun initializeView() {
+        showProgress()
+
+        mViewModel.run{
+            observe(patientDoctorsResult, ::renderPatientDoctorsList)
+            failure(failure, ::handleFailure)
+        }
+
         mBinding.doctorsList.layoutManager = LinearLayoutManager(activity)
         mBinding.doctorsList.adapter = doctorsAdapter
         doctorsAdapter.clickListener = { doctor -> notify(doctor.fullName) }
+    }
 
+    private fun renderPatientDoctorsList(doctors: List<DoctorEntity>?) {
+        hideProgress()
+        doctors ?: return
+        if(doctors.isEmpty()){
+            mViewModel.navigate(HomePatientFragmentDirections.chooseDoctorAction())
+            return
+        }
+        doctorsAdapter.collection = doctors
+        hideProgress()
+    }
 
-        mViewModel.getPatientDoctors()
+    private fun goToLoginActivity() {
+        activity?.startOnBoardActivity()
+        activity?.finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

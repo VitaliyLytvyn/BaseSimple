@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.activity.addCallback
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,7 +17,6 @@ import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.di.Injectable
 import com.us.telemedicine.domain.entity.UserEntity
 import com.us.telemedicine.global.BaseViewModel
-import com.us.telemedicine.presentation.startMainActivity
 import timber.log.Timber.d
 
 class SignInFragment : BaseFragment(), Injectable {
@@ -44,8 +42,7 @@ class SignInFragment : BaseFragment(), Injectable {
     }
 
     private fun setUpVieModel() {
-        mViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(AuthViewModel::class.java)
+        mViewModel = viewModelOfActivity(viewModelFactory) {}
 
         mViewModel.run {
             observe(signInResult, ::handleLoginSuccess)

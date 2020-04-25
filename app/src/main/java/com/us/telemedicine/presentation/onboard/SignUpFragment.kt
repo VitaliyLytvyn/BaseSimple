@@ -3,14 +3,12 @@ package com.us.telemedicine.presentation.onboard
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.us.telemedicine.R
@@ -23,9 +21,7 @@ import com.us.telemedicine.domain.entity.UserEntity
 import com.us.telemedicine.global.extention.*
 import timber.log.Timber.d
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class SignUpFragment : BaseFragment(), Injectable {
 
     private lateinit var mViewModel: AuthViewModel
@@ -50,8 +46,7 @@ class SignUpFragment : BaseFragment(), Injectable {
     }
 
     private fun setUpVieModel() {
-        mViewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(AuthViewModel::class.java)
+        mViewModel = viewModelOfActivity(viewModelFactory) {}
 
         mViewModel.run {
             observe(signUpResult, ::handleSignUpSuccess)
@@ -101,7 +96,6 @@ class SignUpFragment : BaseFragment(), Injectable {
         setupRolesAdapter()
         setupEditTexts()
 
-        //mBinding.haveAccount.setOnClickListener { mViewModel.navigate(SignUpFragmentDirections.actionSignUpFragmentPop()) }
         mBinding.haveAccount.setOnClickListener { mViewModel.navigate(SignUpFragmentDirections.signInAfterCreateUser()) }
     }
 

@@ -32,6 +32,7 @@ class DoctorsAdapter
     class ViewHolder(private val binding: RowDoctorBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(doctorEntity: DoctorEntity, clickListener: (DoctorEntity) -> Unit) {
             binding.textViewId.text = doctorEntity.fullName
+            binding.callButton.setOnClickListener { clickListener(doctorEntity) }
             itemView.setOnClickListener { clickListener(doctorEntity) }
         }
     }

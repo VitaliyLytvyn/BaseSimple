@@ -11,20 +11,18 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.us.telemedicine.databinding.FragmentChooseDoctorBinding
 import com.us.telemedicine.di.Injectable
+import com.us.telemedicine.domain.entity.DoctorEntity
 import com.us.telemedicine.global.BaseFragment
 import com.us.telemedicine.global.BaseViewModel
 import com.us.telemedicine.global.extention.*
 
-
 class ChooseDoctorFragment : BaseFragment(), Injectable {
 
+    private lateinit var mMainViewModel: MainViewModel
     private lateinit var mViewModel: ChooseDoctorVewModel
     override fun getViewModel(): BaseViewModel = mViewModel
     private lateinit var navController: NavController
@@ -45,21 +43,19 @@ class ChooseDoctorFragment : BaseFragment(), Injectable {
     }
 
     private fun setUpVieModel() {
-        mViewModel =
-            ViewModelProvider(this, viewModelFactory).get(ChooseDoctorVewModel::class.java)
+        mViewModel = viewModel(viewModelFactory) {}
+        mMainViewModel = viewModelOfActivity(viewModelFactory) {}
 
         mViewModel.run {
             observe(chooseDoctorForm, ::handleChooseDoctorSuccess)
             observe(showProgress, ::handleShowProgress)
             failure(failure, ::handleFailure)
         }
-    }
 
-     override fun handleFailure(failure: Failure?) {
-         mBinding.pbEdit.setInvisible()
-         mBinding.doctorsName.setEnabled()
-
-         super.handleFailure(failure)
+        mMainViewModel.run {
+            observe(patientDoctorsResult, ::handlePatientDoctorsList)
+            failure(failure, ::handleFailure)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,7 +84,10 @@ class ChooseDoctorFragment : BaseFragment(), Injectable {
 
         mBinding.saveButton.setOnClickListener {
             mViewModel.saveDoctor()
-            mViewModel.navigate(ChooseDoctorFragmentDirections.actionChooseDoctorPop())
+
+            // get new info - list of all patient's doctors
+            mMainViewModel.getPatientDoctors()
+            showProgress()
         }
     }
 
@@ -114,6 +113,16 @@ class ChooseDoctorFragment : BaseFragment(), Injectable {
         }
     }
 
+    private fun handlePatientDoctorsList(doctors: List<DoctorEntity>?) {
+        hideProgress()
+        if (doctors.isNullOrEmpty()) {
+            mBinding.saveButton.setDisabled()
+            return
+        }
+
+        mViewModel.navigate(ChooseDoctorFragmentDirections.actionChooseDoctorPop())
+    }
+
     private fun observeDoctorNames() {
         mViewModel.doctors.observe(viewLifecycleOwner, Observer { mapList ->
             mapList ?: return@Observer
@@ -130,6 +139,13 @@ class ChooseDoctorFragment : BaseFragment(), Injectable {
             mBinding.doctorsName.threshold = 1
             mBinding.doctorsName.showDropDown()
         })
+    }
+
+    override fun handleFailure(failure: Failure?) {
+        mBinding.pbEdit.setInvisible()
+        mBinding.doctorsName.setEnabled()
+
+        super.handleFailure(failure)
     }
 
 }
