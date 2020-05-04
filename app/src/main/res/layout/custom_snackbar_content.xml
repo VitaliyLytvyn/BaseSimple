@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+       tools:layout_height="wrap_content"
+       tools:layout_width="match_parent"
+       tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat"
+       android:orientation="horizontal">
+
+
+    <TextView
+            android:id="@+id/customMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/my_design_snackbar_padding_vertical"
+            android:paddingBottom="@dimen/my_design_snackbar_padding_vertical"
+            android:paddingLeft="@dimen/my_design_snackbar_padding_horizontal"
+            android:paddingRight="@dimen/my_design_snackbar_padding_horizontal"
+            android:textAppearance="@style/TextAppearance.Design.Snackbar.Message"
+            android:maxLines="4"
+            android:layout_gravity="center_vertical|start"
+            android:singleLine="false"
+            android:lines="4"
+            android:gravity="center_vertical"/>
+    <!--android:layout_gravity="center_vertical|left|start"-->
+
+    <Button
+            android:id="@+id/customButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/my_design_snackbar_extra_spacing_horizontal"
+            android:layout_marginStart="@dimen/my_design_snackbar_extra_spacing_horizontal"
+            android:layout_gravity="center_vertical|end"
+            android:paddingTop="@dimen/my_design_snackbar_padding_vertical"
+            android:paddingBottom="@dimen/my_design_snackbar_padding_vertical"
+            android:paddingLeft="@dimen/my_design_snackbar_padding_horizontal"
+            android:paddingRight="@dimen/my_design_snackbar_padding_horizontal"
+            android:visibility="gone"
+            android:textColor="?attr/colorAccent"
+            style="?attr/borderlessButtonStyle"/>
+    <!--android:layout_gravity="center_vertical|right|end"-->
+
+</merge>
